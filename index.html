@@ -1,0 +1,506 @@
+<title>Correspondence Register</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+
+<style>
+  :root {
+    --bg:        #f4f1ec;
+    --surface:   #fbf9f5;
+    --surface-2: #efeae1;
+    --line:      #ddd5c8;
+    --line-soft: #e8e1d5;
+    --ink:       #2c2622;
+    --ink-2:     #5c5347;
+    --ink-3:     #8a8072;
+    --accent:    #7a1f2b;
+    --accent-2:  #9c3540;
+    --accent-ink:#fbf9f5;
+
+    --cat-bsp:  #1f6f6b; --cat-bsp-bg:  #dcefee;
+    --cat-rba:  #5a4b9c; --cat-rba-bg:  #e8e4f4;
+    --cat-bdis: #a2611a; --cat-bdis-bg: #f6e8d6;
+    --cat-eap:  #386b3f; --cat-eap-bg:  #e2efe2;
+
+    --dr-rs: #b52d7f; --dr-rs-bg: #f6e1ee;
+    --dr-mh: #397d4f; --dr-mh-bg: #e1efe4;
+    --dr-rj: #b3651a; --dr-rj-bg: #f6e8d4;
+
+    --shadow: 0 1px 2px rgba(44,38,34,.05), 0 8px 24px rgba(44,38,34,.06);
+    --radius: 9px;
+  }
+  :root:not([data-theme="light"]) {
+    @media (prefers-color-scheme: dark) {
+      --bg:        #1a1714; --surface:   #232019; --surface-2: #2b271f;
+      --line:      #3a352b; --line-soft: #322e26;
+      --ink:       #ece5d8; --ink-2:     #b6ac9b; --ink-3:     #837a6b;
+      --accent:    #d98a92; --accent-2:  #e5a0a7; --accent-ink:#231014;
+      --cat-bsp:  #6fc9c3; --cat-bsp-bg:  #143230;
+      --cat-rba:  #b3a6e6; --cat-rba-bg:  #241f36;
+      --cat-bdis: #e0ac66; --cat-bdis-bg: #33260f;
+      --cat-eap:  #9ccaa4; --cat-eap-bg:  #1d2c20;
+      --dr-rs: #eaa0cd; --dr-rs-bg: #351d2b;
+      --dr-mh: #9ccaa4; --dr-mh-bg: #1d2c22;
+      --dr-rj: #e0ac66; --dr-rj-bg: #33260f;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg:        #1a1714; --surface:   #232019; --surface-2: #2b271f;
+    --line:      #3a352b; --line-soft: #322e26;
+    --ink:       #ece5d8; --ink-2:     #b6ac9b; --ink-3:     #837a6b;
+    --accent:    #d98a92; --accent-2:  #e5a0a7; --accent-ink:#231014;
+    --cat-bsp:  #6fc9c3; --cat-bsp-bg:  #143230;
+    --cat-rba:  #b3a6e6; --cat-rba-bg:  #241f36;
+    --cat-bdis: #e0ac66; --cat-bdis-bg: #33260f;
+    --cat-eap:  #9ccaa4; --cat-eap-bg:  #1d2c20;
+    --dr-rs: #eaa0cd; --dr-rs-bg: #351d2b;
+    --dr-mh: #9ccaa4; --dr-mh-bg: #1d2c22;
+    --dr-rj: #e0ac66; --dr-rj-bg: #33260f;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.35);
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: "IBM Plex Sans", system-ui, sans-serif; font-size: 15px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 0 20px 64px; }
+
+  .masthead { border-bottom: 1px solid var(--line); background: linear-gradient(180deg, var(--surface), transparent 140%); }
+  .masthead-inner { max-width: 1200px; margin: 0 auto; padding: 22px 20px 20px; display: flex; align-items: flex-start; gap: 16px; flex-wrap: wrap; }
+  .crest { width: 44px; height: 44px; flex: none; border-radius: 50%; background: var(--accent); color: var(--accent-ink); display: grid; place-items: center; font-family: "Spectral", serif; font-weight: 600; font-size: 20px; box-shadow: inset 0 0 0 2px var(--surface), inset 0 0 0 3px var(--accent); }
+  .masthead h1 { font-family: "Spectral", serif; font-weight: 600; font-size: clamp(24px, 3.4vw, 32px); line-height: 1.1; margin: 0; letter-spacing: -.01em; text-wrap: balance; }
+  .masthead .sub { margin: 3px 0 0; color: var(--ink-2); font-size: 13.5px; }
+  .masthead .titleblock { flex: 1 1 260px; min-width: 220px; }
+  .eyebrow { font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--accent-2); margin: 0 0 4px; }
+  .theme-toggle { margin-left: auto; align-self: center; border: 1px solid var(--line); background: var(--surface); color: var(--ink-2); border-radius: 8px; padding: 7px 11px; font: inherit; font-size: 13px; cursor: pointer; display: inline-flex; gap: 7px; align-items: center; }
+  .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+
+  .desk { margin: 22px 0 20px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+  .desk-head { display: flex; align-items: center; gap: 9px; padding: 12px 18px; border-bottom: 1px solid var(--line-soft); background: var(--surface-2); }
+  .desk-head h2 { margin: 0; font-family: "Spectral", serif; font-size: 15px; font-weight: 600; color: var(--ink); }
+  .desk-head .seal { color: var(--accent); }
+  .desk-head .saved { margin-left: auto; font-size: 11.5px; color: var(--cat-eap); opacity: 0; transition: opacity .2s; }
+  .desk-head .saved.show { opacity: 1; }
+  .desk-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
+  .desk-cell { padding: 14px 18px; border-right: 1px solid var(--line-soft); display: flex; flex-direction: column; gap: 6px; }
+  .desk-cell:last-child { border-right: none; }
+  .desk-cell .k { font-size: 10.5px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); display: flex; align-items: center; gap: 6px; }
+  .desk-cell .k .dot { width: 6px; height: 6px; border-radius: 50%; }
+  .desk-cell.mono input { font-family: "IBM Plex Mono", monospace; }
+  .desk-cell input { font: inherit; font-size: 14px; font-weight: 500; color: var(--ink); border: 1px solid transparent; border-radius: 6px; padding: 6px 8px; margin: -6px -8px; background: transparent; width: calc(100% + 16px); }
+  .desk-cell input:hover { background: var(--bg); }
+  .desk-cell input:focus { outline: none; border-color: var(--accent); background: var(--bg); }
+
+  .toolbar { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 14px; }
+  .search { flex: 1 1 200px; position: relative; min-width: 170px; }
+  .search input { width: 100%; padding: 9px 12px 9px 34px; font: inherit; font-size: 14px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); color: var(--ink); }
+  .search svg { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); color: var(--ink-3); }
+  .search input:focus { outline: 2px solid var(--accent); outline-offset: -1px; border-color: transparent; }
+  select.filter { padding: 9px 30px 9px 12px; font: inherit; font-size: 14px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path d='M2 4l4 4 4-4' fill='none' stroke='%238a8072' stroke-width='1.5'/></svg>") no-repeat right 10px center; color: var(--ink); cursor: pointer; -webkit-appearance: none; appearance: none; }
+  select.filter:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+  .btn-add { margin-left: auto; padding: 9px 16px; font: inherit; font-weight: 600; font-size: 14px; background: var(--accent); color: var(--accent-ink); border: none; border-radius: 8px; cursor: pointer; display: inline-flex; gap: 7px; align-items: center; }
+  .btn-add:hover { background: var(--accent-2); }
+
+  .table-scroll { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow-x: auto; box-shadow: var(--shadow); }
+  table { width: 100%; border-collapse: collapse; min-width: 1180px; }
+  thead th { text-align: left; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .07em; color: var(--ink-3); padding: 11px 14px; border-bottom: 1px solid var(--line); background: var(--surface-2); white-space: nowrap; }
+  thead th.sortable { cursor: pointer; user-select: none; }
+  thead th.sortable:hover { color: var(--accent); }
+  thead th .arw { font-size: 9px; opacity: .7; }
+  thead th.col-title { min-width: 320px; }
+  tbody td { padding: 10px 14px; border-bottom: 1px solid var(--line-soft); vertical-align: top; }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:hover { background: var(--surface-2); }
+
+  select.msel { font-family: "Spectral", serif; font-weight: 600; font-size: 12.5px; color: var(--ink-2); background-color: var(--surface-2); border-color: var(--line); }
+  .ed { display: inline-block; min-width: 24px; border-radius: 5px; padding: 3px 5px; margin: -3px -5px; cursor: text; }
+  .ed:hover { background: var(--bg); box-shadow: inset 0 0 0 1px var(--line-soft); }
+  .ed:focus { outline: 2px solid var(--accent); outline-offset: 0; background: var(--bg); }
+  .ed.ref { font-family: "IBM Plex Mono", monospace; font-size: 12.5px; white-space: nowrap; }
+  .ed.title { font-weight: 500; min-width: 300px; max-width: 420px; }
+  .ed.small { color: var(--ink-2); font-size: 13.5px; }
+  .ed.attach { color: var(--ink-2); font-size: 13px; max-width: 160px; }
+  .ed.attach:empty::before { content: "—"; color: var(--ink-3); }
+  td.date-cell input { font-family: "IBM Plex Mono", monospace; font-size: 12.5px; color: var(--ink-2); background: transparent; border: 1px solid transparent; border-radius: 6px; padding: 4px 4px; margin: -4px 0; font-variant-numeric: tabular-nums; color-scheme: light dark; }
+  td.date-cell input:hover { background: var(--bg); box-shadow: inset 0 0 0 1px var(--line-soft); }
+  td.date-cell input:focus { outline: 2px solid var(--accent); outline-offset: 0; background: var(--bg); }
+
+  select.cell { font: inherit; font-weight: 600; border: 1px solid transparent; border-radius: 6px; padding: 3px 20px 3px 8px; cursor: pointer; -webkit-appearance: none; appearance: none; background-repeat: no-repeat; background-position: right 6px center; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 12 12'><path d='M2 4l4 4 4-4' fill='none' stroke='currentColor' stroke-width='1.6'/></svg>"); }
+  select.cell:hover { filter: brightness(.97); }
+  select.cell:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+  select.cell option { color: var(--ink); background: var(--surface); font-weight: 500; }
+
+  select.catsel { font-size: 11px; font-weight: 700; letter-spacing: .03em; }
+  select.catsel.BSP  { color: var(--cat-bsp);  background-color: var(--cat-bsp-bg); }
+  select.catsel.RBA  { color: var(--cat-rba);  background-color: var(--cat-rba-bg); }
+  select.catsel.BDIS { color: var(--cat-bdis); background-color: var(--cat-bdis-bg); }
+  select.catsel.EAP  { color: var(--cat-eap);  background-color: var(--cat-eap-bg); }
+
+  select.docsel { font-size: 11.5px; background-color: var(--surface-2); border-color: var(--line); }
+
+  select.drsel { font-size: 11.5px; font-weight: 700; letter-spacing: .04em; }
+  select.drsel.rs { color: var(--dr-rs); background-color: var(--dr-rs-bg); }
+  select.drsel.mh { color: var(--dr-mh); background-color: var(--dr-mh-bg); }
+  select.drsel.rj { color: var(--dr-rj); background-color: var(--dr-rj-bg); }
+
+  .row-del { border: none; background: none; color: var(--ink-3); cursor: pointer; padding: 4px; border-radius: 6px; line-height: 0; }
+  .row-del:hover { color: var(--accent); background: var(--surface-2); }
+  .empty { padding: 40px; text-align: center; color: var(--ink-3); font-size: 14px; }
+
+  tbody tr.grp td { background: var(--surface-2); padding: 8px 14px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  tbody tr.grp:hover td { background: var(--surface-2); }
+  tbody tr.grp:first-child td { border-top: none; }
+  .grp-label { font-family: "Spectral", serif; font-weight: 600; font-size: 13px; color: var(--accent-2); letter-spacing: .01em; }
+  .grp-count { font-weight: 500; font-size: 11px; color: var(--ink-3); text-transform: uppercase; letter-spacing: .05em; margin-left: 8px; }
+
+  .stats-head { margin: 30px 0 12px; font-family: "Spectral", serif; font-size: 15px; font-weight: 600; color: var(--ink-2); }
+  .stats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+  .tile { background: var(--surface); border: 1px solid var(--line-soft); border-radius: var(--radius); padding: 14px 15px; display: flex; flex-direction: column; gap: 2px; position: relative; overflow: hidden; }
+  .tile::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--tint, var(--ink-3)); }
+  .tile .n { font-family: "IBM Plex Mono", monospace; font-weight: 500; font-size: 27px; line-height: 1; letter-spacing: -.02em; font-variant-numeric: tabular-nums; color: var(--ink); }
+  .tile .l { font-size: 12px; color: var(--ink-2); font-weight: 500; text-transform: uppercase; letter-spacing: .04em; }
+
+  .modal-bg { position: fixed; inset: 0; background: rgba(20,16,12,.5); display: none; align-items: flex-start; justify-content: center; padding: 40px 16px; overflow-y: auto; z-index: 50; }
+  .modal-bg.open { display: flex; }
+  .modal { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; width: 100%; max-width: 560px; box-shadow: var(--shadow); animation: pop .16s ease; }
+  @keyframes pop { from { transform: translateY(8px); opacity: 0; } }
+  @media (prefers-reduced-motion: reduce) { .modal { animation: none; } }
+  .modal-head { padding: 18px 22px; border-bottom: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; }
+  .modal-head h2 { margin: 0; font-family: "Spectral", serif; font-size: 19px; font-weight: 600; }
+  .modal-body { padding: 20px 22px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .field { display: flex; flex-direction: column; gap: 5px; }
+  .field.full { grid-column: 1 / -1; }
+  .field label { font-size: 12px; font-weight: 600; color: var(--ink-2); letter-spacing: .02em; }
+  .field input, .field select, .field textarea { padding: 8px 11px; font: inherit; font-size: 14px; border: 1px solid var(--line); border-radius: 7px; background: var(--bg); color: var(--ink); }
+  .field textarea { resize: vertical; min-height: 54px; }
+  .field input:focus, .field select:focus, .field textarea:focus { outline: 2px solid var(--accent); outline-offset: -1px; border-color: transparent; }
+  .modal-foot { padding: 16px 22px; border-top: 1px solid var(--line); display: flex; justify-content: flex-end; gap: 10px; }
+  .btn-ghost { padding: 9px 16px; font: inherit; font-weight: 500; border: 1px solid var(--line); background: var(--surface); color: var(--ink-2); border-radius: 8px; cursor: pointer; }
+  .btn-ghost:hover { border-color: var(--ink-3); }
+  .btn-primary { padding: 9px 18px; font: inherit; font-weight: 600; border: none; background: var(--accent); color: var(--accent-ink); border-radius: 8px; cursor: pointer; }
+  .btn-primary:hover { background: var(--accent-2); }
+  .x { border: none; background: none; font-size: 22px; line-height: 1; color: var(--ink-3); cursor: pointer; }
+
+  .foot-note { margin-top: 18px; font-size: 12px; color: var(--ink-3); text-align: center; }
+
+  @media (max-width: 900px) { .stats { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 860px) { .desk-grid { grid-template-columns: 1fr 1fr; } .desk-cell:nth-child(2) { border-right: none; } .desk-cell:nth-child(1), .desk-cell:nth-child(2) { border-bottom: 1px solid var(--line-soft); } }
+  @media (max-width: 720px) { .stats { grid-template-columns: repeat(2, 1fr); } .modal-body { grid-template-columns: 1fr; } .btn-add span.lbl { display: none; } }
+  @media (max-width: 520px) { .desk-grid { grid-template-columns: 1fr; } .desk-cell { border-right: none; border-bottom: 1px solid var(--line-soft); } .desk-cell:last-child { border-bottom: none; } }
+</style>
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <div class="crest">C</div>
+    <div class="titleblock">
+      <p class="eyebrow">Records Management System</p>
+      <h1>Correspondence Register</h1>
+      <p class="sub">Minutes &middot; Memo &middot; Incoming &amp; Outgoing Letters — registration, action and follow-up</p>
+    </div>
+    <button class="theme-toggle" id="themeBtn" title="Toggle theme"><span id="themeIcon">☾</span> <span id="themeTxt">Dark</span></button>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="desk">
+    <div class="desk-head">
+      <svg class="seal" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1.5l1.6 3.3 3.6.5-2.6 2.5.6 3.6L8 9.7 4.8 11.4l.6-3.6L2.8 5.3l3.6-.5L8 1.5z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg>
+      <h2>Reference &amp; Slogan Control</h2>
+      <span class="saved" id="deskSaved">✓ Saved</span>
+    </div>
+    <div class="desk-grid">
+      <div class="desk-cell mono">
+        <span class="k"><span class="dot" style="background:var(--ink-3)"></span>Last Reference Used</span>
+        <input id="d_lastRef" placeholder="—">
+      </div>
+      <div class="desk-cell mono">
+        <span class="k"><span class="dot" style="background:var(--accent)"></span>Next Reference</span>
+        <input id="d_nextRef" placeholder="—">
+      </div>
+      <div class="desk-cell">
+        <span class="k"><span class="dot" style="background:var(--ink-3)"></span>Current Slogan</span>
+        <input id="d_slogan" placeholder="—">
+      </div>
+      <div class="desk-cell">
+        <span class="k"><span class="dot" style="background:var(--accent)"></span>Next Slogan</span>
+        <input id="d_nextSlogan" placeholder="—">
+      </div>
+    </div>
+  </section>
+
+  <div class="toolbar">
+    <div class="search">
+      <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><circle cx="6.5" cy="6.5" r="4.5" stroke="currentColor" stroke-width="1.4"/><path d="M10 10l3.5 3.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+      <input id="q" type="search" placeholder="Search title, reference, sender…" autocomplete="off">
+    </div>
+    <select class="filter" id="fCat">
+      <option value="">All Categories</option>
+      <option>BSP</option><option>RBA</option><option>BDIS</option><option>EAP</option>
+    </select>
+    <select class="filter" id="fMonth"><option value="">All Months</option></select>
+    <select class="filter" id="fDoc">
+      <option value="">All Documents</option>
+      <option>Minutes</option><option>Memo</option><option>Incoming Letter</option><option>Outgoing Letter</option>
+    </select>
+    <button class="btn-add" id="addBtn">
+      <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M7.5 2v11M2 7.5h11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <span class="lbl">New Entry</span>
+    </button>
+  </div>
+
+  <div class="table-scroll">
+    <table>
+      <thead>
+        <tr>
+          <th class="sortable" id="sortDate">Month <span class="arw" id="arwDate">▲</span></th>
+          <th class="col-title">Title</th>
+          <th>From</th>
+          <th>To</th>
+          <th>Date</th>
+          <th>Attachments</th>
+          <th>Document</th>
+          <th>Reference</th>
+          <th>Drafted By</th>
+          <th>Category</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </div>
+
+  <h2 class="stats-head">Summary by Category</h2>
+  <section class="stats" id="stats"></section>
+
+  <p class="foot-note" id="footNote"></p>
+</main>
+
+<div class="modal-bg" id="modalBg">
+  <form class="modal" id="form">
+    <div class="modal-head">
+      <h2>New Correspondence Entry</h2>
+      <button type="button" class="x" id="closeX">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="field full">
+        <label for="f_title">Title</label>
+        <textarea id="f_title" required placeholder="e.g. Request for additional allocation for the programme…"></textarea>
+      </div>
+      <div class="field">
+        <label for="f_from">From</label>
+        <input id="f_from" placeholder="Finance Division">
+      </div>
+      <div class="field">
+        <label for="f_to">To</label>
+        <input id="f_to" placeholder="District Office">
+      </div>
+      <div class="field">
+        <label for="f_date">Date</label>
+        <input id="f_date" type="date" required>
+      </div>
+      <div class="field">
+        <label for="f_attach">Attachments</label>
+        <input id="f_attach" placeholder="e.g. 2 encl. / Appendix A">
+      </div>
+      <div class="field">
+        <label for="f_doc">Document</label>
+        <select id="f_doc"><option>Minutes</option><option>Memo</option><option>Incoming Letter</option><option>Outgoing Letter</option></select>
+      </div>
+      <div class="field">
+        <label for="f_ref">Reference</label>
+        <input id="f_ref" required placeholder="KKM.600-1/2/3 (12)">
+      </div>
+      <div class="field">
+        <label for="f_draft">Drafted By</label>
+        <select id="f_draft"><option value="RS">RS</option><option value="MH">MH</option><option value="RJ">RJ</option></select>
+      </div>
+      <div class="field">
+        <label for="f_cat">Category</label>
+        <select id="f_cat"><option>BSP</option><option>RBA</option><option>BDIS</option><option>EAP</option></select>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button type="button" class="btn-ghost" id="cancelBtn">Cancel</button>
+      <button type="submit" class="btn-primary">Save Entry</button>
+    </div>
+  </form>
+</div>
+
+<script>
+(function () {
+  var CATS = ["BSP","RBA","BDIS","EAP"];
+  var DOCS = ["Minutes","Memo","Incoming Letter","Outgoing Letter"];
+  var DRAFTS = ["RS","MH","RJ"];
+  var MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+
+  var seed = [
+    { ref:"PM.PU/09-4 Jld.3 (27)", cat:"BSP",  doc:"Minutes",         title:"Minutes of District Development Committee Meeting No. 4/2026", date:"2026-08-24", from:"Meeting Secretary", to:"Committee Members", draft:"RS", attach:"Agenda + 2 encl." },
+    { ref:"KKM.600-1/2/3 (15)",    cat:"RBA",  doc:"Incoming Letter",  title:"Request for additional allocation for the Health Screening Programme", date:"2026-08-19", from:"District Health Office", to:"State Secretariat", draft:"MH", attach:"Appendix A" },
+    { ref:"JPA(S)71/2 Klt.8 (44)", cat:"EAP",  doc:"Memo",             title:"Notice of officer transfer — handover instruction", date:"2026-08-28", from:"Human Resource Division", to:"All Sections", draft:"RJ", attach:"" },
+    { ref:"BPK.500-2/1 (09)",      cat:"BDIS", doc:"Outgoing Letter",   title:"Reply to public complaint regarding road maintenance", date:"2026-07-31", from:"Public Complaints Unit", to:"Complainant", draft:"RS", attach:"Photos (3)" },
+    { ref:"MKN.11/8/1 (18)",       cat:"BSP",  doc:"Minutes",           title:"Follow-up minutes of the water supply security meeting", date:"2026-08-12", from:"NSC Secretariat", to:"Committee Members", draft:"MH", attach:"" },
+    { ref:"KEW.PS/1.3 (61)",       cat:"RBA",  doc:"Memo",              title:"Reminder on third quarter financial account closing", date:"2026-08-29", from:"Finance Division", to:"All Sections", draft:"RJ", attach:"Form KEW.8" },
+    { ref:"PTG.100-3/4 (22)",      cat:"BDIS", doc:"Incoming Letter",   title:"Notice of coordination meeting for community hall upgrade", date:"2026-07-18", from:"Land & Mines Office", to:"District Office", draft:"MH", attach:"Site plan" },
+    { ref:"EAP.2/7-3 (05)",        cat:"EAP",  doc:"Outgoing Letter",   title:"Notice of community engagement programme for the coming quarter", date:"2026-06-25", from:"District Office", to:"Village Heads", draft:"RS", attach:"Schedule" }
+  ];
+
+  var KEY = "persuratan.records.v5";
+  var DESK_KEY = "persuratan.desk.v1";
+  var data;
+  try { data = JSON.parse(localStorage.getItem(KEY)) || seed; } catch (e) { data = seed; }
+  function save(){ try { localStorage.setItem(KEY, JSON.stringify(data)); } catch(e){} }
+
+  var deskDefaults = { lastRef:"EAP.2/7-3 (05)", nextRef:"EAP.2/7-3 (06)", slogan:"NEGARA ZIKIR", nextSlogan:"MELAYU ISLAM BERAJA" };
+  var desk;
+  try { desk = Object.assign({}, deskDefaults, JSON.parse(localStorage.getItem(DESK_KEY)) || {}); } catch(e){ desk = Object.assign({}, deskDefaults); }
+
+  var $ = function(s){ return document.querySelector(s); };
+  var rowsEl = $("#rows"), statsEl = $("#stats");
+  var sortDir = 1; // first (earliest) to last
+
+  function monthIdx(d){ if(!d) return -1; var p = d.split("-"); return p.length===3 ? (+p[1]-1) : -1; }
+  function monthKey(d){ if(!d) return "9999-99"; var p = d.split("-"); return p.length===3 ? (p[0]+"-"+p[1]) : "9999-99"; }
+  function monthName(d){ var i = monthIdx(d); return i>=0 ? MONTHS[i] : "—"; }
+  function monthLabel(d){ if(!d) return "Undated"; var p = d.split("-"); return p.length===3 ? (MONTHS[+p[1]-1]+" "+p[0]) : "Undated"; }
+  function fmt(d){ if(!d) return ""; var p = d.split("-"); if(p.length!==3) return d; return p[2]+"/"+p[1]+"/"+p[0]; }
+  function esc(s){ return String(s==null?"":s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
+  function opts(arr, cur){ return arr.map(function(v){ return '<option value="'+esc(v)+'"'+(v===cur?' selected':'')+'>'+esc(v)+'</option>'; }).join(""); }
+
+  (function(){ var sel = $("#fMonth"); MONTHS.forEach(function(m,i){ var o=document.createElement("option"); o.value=String(i); o.textContent=m; sel.appendChild(o); }); })();
+
+  var deskMap = { d_lastRef:"lastRef", d_nextRef:"nextRef", d_slogan:"slogan", d_nextSlogan:"nextSlogan" };
+  Object.keys(deskMap).forEach(function(id){
+    var el = document.getElementById(id); el.value = desk[deskMap[id]] || "";
+    el.addEventListener("input", function(){ desk[deskMap[id]] = el.value; try{ localStorage.setItem(DESK_KEY, JSON.stringify(desk)); }catch(e){} flashSaved(); });
+  });
+  var savedT;
+  function flashSaved(){ var s=$("#deskSaved"); s.classList.add("show"); clearTimeout(savedT); savedT=setTimeout(function(){ s.classList.remove("show"); }, 1200); }
+
+  function render(){
+    var q = $("#q").value.trim().toLowerCase();
+    var fc = $("#fCat").value, fm = $("#fMonth").value, fd = $("#fDoc").value;
+    var list = data.filter(function(r){
+      if (fc && r.cat !== fc) return false;
+      if (fm !== "" && monthIdx(r.date) !== +fm) return false;
+      if (fd && r.doc !== fd) return false;
+      if (q) { var hay = (r.ref+" "+r.title+" "+r.from+" "+r.to+" "+r.draft+" "+r.cat+" "+r.attach).toLowerCase(); if (hay.indexOf(q) === -1) return false; }
+      return true;
+    });
+    list.sort(function(a,b){ var av=a.date||"", bv=b.date||""; if(av<bv) return -1*sortDir; if(av>bv) return 1*sortDir; return 0; });
+
+    var cc = { total:data.length, BSP:0, RBA:0, BDIS:0, EAP:0 };
+    data.forEach(function(r){ if(cc[r.cat]!=null) cc[r.cat]++; });
+    statsEl.innerHTML =
+      tile(cc.total, "Total Records", "var(--accent)") +
+      tile(cc.BSP, "BSP", "var(--cat-bsp)") +
+      tile(cc.RBA, "RBA", "var(--cat-rba)") +
+      tile(cc.BDIS, "BDIS", "var(--cat-bdis)") +
+      tile(cc.EAP, "EAP", "var(--cat-eap)");
+
+    if (!list.length) {
+      rowsEl.innerHTML = '<tr><td colspan="11"><div class="empty">No matching records. Try adjusting the search or filters.</div></td></tr>';
+    } else {
+      var counts = {};
+      list.forEach(function(r){ var k = monthKey(r.date); counts[k] = (counts[k]||0)+1; });
+      var curKey = null;
+      rowsEl.innerHTML = list.map(function(r){
+        var idx = data.indexOf(r);
+        var head = "";
+        var k = monthKey(r.date);
+        if (k !== curKey) {
+          curKey = k;
+          head = '<tr class="grp"><td colspan="11"><span class="grp-label">'+esc(monthLabel(r.date))+'</span><span class="grp-count">'+counts[k]+(counts[k]===1?' record':' records')+'</span></td></tr>';
+        }
+        var mi = monthIdx(r.date);
+        var mopts = '<option value=""'+(mi<0?' selected':'')+'>—</option>' + MONTHS.map(function(m,i){ return '<option value="'+i+'"'+(i===mi?' selected':'')+'>'+m+'</option>'; }).join("");
+        return head + '<tr>'+
+          '<td><select class="cell msel" data-i="'+idx+'" data-f="month">'+mopts+'</select></td>'+
+          '<td><span class="ed title" contenteditable="true" data-i="'+idx+'" data-f="title">'+esc(r.title)+'</span></td>'+
+          '<td><span class="ed small" contenteditable="true" data-i="'+idx+'" data-f="from">'+esc(r.from)+'</span></td>'+
+          '<td><span class="ed small" contenteditable="true" data-i="'+idx+'" data-f="to">'+esc(r.to)+'</span></td>'+
+          '<td class="date-cell"><input type="date" value="'+esc(r.date)+'" data-i="'+idx+'" data-f="date"></td>'+
+          '<td><span class="ed attach" contenteditable="true" data-i="'+idx+'" data-f="attach">'+esc(r.attach)+'</span></td>'+
+          '<td><select class="cell docsel" data-i="'+idx+'" data-f="doc">'+opts(DOCS,r.doc)+'</select></td>'+
+          '<td><span class="ed ref" contenteditable="true" data-i="'+idx+'" data-f="ref">'+esc(r.ref)+'</span></td>'+
+          '<td><select class="cell drsel '+esc(r.draft).toLowerCase()+'" data-i="'+idx+'" data-f="draft">'+opts(DRAFTS,r.draft)+'</select></td>'+
+          '<td><select class="cell catsel '+esc(r.cat)+'" data-i="'+idx+'" data-f="cat">'+opts(CATS,r.cat)+'</select></td>'+
+          '<td><button class="row-del" data-i="'+idx+'" title="Delete record" aria-label="Delete">'+
+            '<svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M3 4h9M6 4V2.5h3V4M5 4l.5 8h4L10 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>'+
+          '</button></td>'+
+        '</tr>';
+      }).join("");
+    }
+    $("#footNote").textContent = "Showing "+list.length+" of "+data.length+" records · data is saved on this device";
+  }
+  function tile(n,l,tint){ return '<div class="tile" style="--tint:'+tint+'"><span class="n">'+n+'</span><span class="l">'+l+'</span></div>'; }
+
+  rowsEl.addEventListener("focusout", function(e){
+    var el = e.target;
+    if (el.classList && el.classList.contains("ed") && el.hasAttribute("contenteditable")) {
+      var i = +el.getAttribute("data-i"), f = el.getAttribute("data-f");
+      var v = el.textContent.replace(/\s+/g," ").trim();
+      if (data[i] && data[i][f] !== v) { data[i][f] = v; save(); }
+    }
+  });
+  rowsEl.addEventListener("change", function(e){
+    var el = e.target;
+    if (el.classList && el.classList.contains("msel")) {
+      var mi = +el.getAttribute("data-i"); var mv = el.value;
+      if (mv === "") return;
+      var p = (data[mi].date || "").split("-");
+      var year = (p.length === 3) ? p[0] : String(new Date().getFullYear());
+      var day  = (p.length === 3) ? p[2] : "01";
+      data[mi].date = year + "-" + String(+mv + 1).padStart(2, "0") + "-" + day;
+      save(); render();
+    }
+    else if (el.tagName === "SELECT" && el.classList.contains("cell")) { var i=+el.getAttribute("data-i"); data[i][el.getAttribute("data-f")] = el.value; save(); render(); }
+    else if (el.matches && el.matches('input[type="date"]')) { var j=+el.getAttribute("data-i"); data[j].date = el.value; save(); render(); }
+  });
+  rowsEl.addEventListener("keydown", function(e){
+    if (e.key === "Enter" && e.target.classList && e.target.classList.contains("ed")) { e.preventDefault(); e.target.blur(); }
+  });
+  rowsEl.addEventListener("click", function(e){
+    var b = e.target.closest(".row-del"); if(!b) return;
+    var i = +b.getAttribute("data-i");
+    if (confirm("Delete this record?\n\n"+data[i].title)) { data.splice(i,1); save(); render(); }
+  });
+  ["q","fCat","fMonth","fDoc"].forEach(function(id){ $("#"+id).addEventListener("input", render); });
+  $("#sortDate").addEventListener("click", function(){ sortDir *= -1; $("#arwDate").textContent = sortDir<0?"▼":"▲"; render(); });
+
+  var modalBg = $("#modalBg");
+  function openModal(){ $("#f_date").value = new Date().toISOString().slice(0,10); if(desk.nextRef) $("#f_ref").value = desk.nextRef; modalBg.classList.add("open"); $("#f_title").focus(); }
+  function closeModal(){ modalBg.classList.remove("open"); $("#form").reset(); }
+  $("#addBtn").addEventListener("click", openModal);
+  $("#closeX").addEventListener("click", closeModal);
+  $("#cancelBtn").addEventListener("click", closeModal);
+  modalBg.addEventListener("click", function(e){ if(e.target===modalBg) closeModal(); });
+  document.addEventListener("keydown", function(e){ if(e.key==="Escape") closeModal(); });
+
+  $("#form").addEventListener("submit", function(e){
+    e.preventDefault();
+    var ref = $("#f_ref").value.trim();
+    data.unshift({
+      ref: ref, cat: $("#f_cat").value, doc: $("#f_doc").value,
+      title: $("#f_title").value.trim(), date: $("#f_date").value,
+      from: $("#f_from").value.trim(), to: $("#f_to").value.trim(),
+      draft: $("#f_draft").value, attach: $("#f_attach").value.trim()
+    });
+    desk.lastRef = ref; $("#d_lastRef").value = ref;
+    try{ localStorage.setItem(DESK_KEY, JSON.stringify(desk)); }catch(e){}
+    save(); closeModal(); render();
+  });
+
+  var root = document.documentElement, tBtn = $("#themeBtn");
+  function sysDark(){ return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches; }
+  var theme = null; try { theme = localStorage.getItem("persuratan.theme"); } catch(e){}
+  function apply(){
+    var dark = theme ? theme==="dark" : sysDark();
+    if (theme) root.setAttribute("data-theme", theme); else root.removeAttribute("data-theme");
+    $("#themeIcon").textContent = dark ? "☀" : "☾"; $("#themeTxt").textContent = dark ? "Light" : "Dark";
+  }
+  tBtn.addEventListener("click", function(){ var dark = theme ? theme==="dark" : sysDark(); theme = dark ? "light" : "dark"; try { localStorage.setItem("persuratan.theme", theme); } catch(e){} apply(); });
+  apply();
+  render();
+})();
+</script>
