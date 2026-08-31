@@ -1,6 +1,6 @@
 # Correspondence Register (Daftar Persuratan)
 
-A lightweight tracker for government correspondence — **minutes, memos, and incoming/outgoing letters**. Built as a single, self-contained HTML page with no build step and no server.
+A lightweight tracker for government correspondence — **minutes, memos, and letters**. Built as a single, self-contained HTML page with no build step and no server.
 
 ## Features
 

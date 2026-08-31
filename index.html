@@ -196,7 +196,7 @@
     <div class="titleblock">
       <p class="eyebrow">Records Management System</p>
       <h1>Correspondence Register</h1>
-      <p class="sub">Minutes &middot; Memo &middot; Incoming &amp; Outgoing Letters — registration, action and follow-up</p>
+      <p class="sub">Minutes &middot; Memo &middot; Letters — registration, action and follow-up</p>
     </div>
     <button class="theme-toggle" id="themeBtn" title="Toggle theme"><span id="themeIcon">☾</span> <span id="themeTxt">Dark</span></button>
   </div>
@@ -241,7 +241,7 @@
     <select class="filter" id="fMonth"><option value="">All Months</option></select>
     <select class="filter" id="fDoc">
       <option value="">All Documents</option>
-      <option>Minutes</option><option>Memo</option><option>Incoming Letter</option><option>Outgoing Letter</option>
+      <option>Minutes</option><option>Memo</option><option>Letter</option>
     </select>
     <button class="btn-add" id="addBtn">
       <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M7.5 2v11M2 7.5h11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
@@ -305,7 +305,7 @@
       </div>
       <div class="field">
         <label for="f_doc">Document</label>
-        <select id="f_doc"><option>Minutes</option><option>Memo</option><option>Incoming Letter</option><option>Outgoing Letter</option></select>
+        <select id="f_doc"><option>Minutes</option><option>Memo</option><option>Letter</option></select>
       </div>
       <div class="field">
         <label for="f_ref">Reference</label>
@@ -330,22 +330,22 @@
 <script>
 (function () {
   var CATS = ["BSP","RBA","BDIS","EAP"];
-  var DOCS = ["Minutes","Memo","Incoming Letter","Outgoing Letter"];
+  var DOCS = ["Minutes","Memo","Letter"];
   var DRAFTS = ["RS","MH","RJ"];
   var MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 
   var seed = [
     { ref:"PM.PU/09-4 Jld.3 (27)", cat:"BSP",  doc:"Minutes",         title:"Minutes of District Development Committee Meeting No. 4/2026", date:"2026-08-24", from:"Meeting Secretary", to:"Committee Members", draft:"RS", attach:"Agenda + 2 encl." },
-    { ref:"KKM.600-1/2/3 (15)",    cat:"RBA",  doc:"Incoming Letter",  title:"Request for additional allocation for the Health Screening Programme", date:"2026-08-19", from:"District Health Office", to:"State Secretariat", draft:"MH", attach:"Appendix A" },
+    { ref:"KKM.600-1/2/3 (15)",    cat:"RBA",  doc:"Letter",  title:"Request for additional allocation for the Health Screening Programme", date:"2026-08-19", from:"District Health Office", to:"State Secretariat", draft:"MH", attach:"Appendix A" },
     { ref:"JPA(S)71/2 Klt.8 (44)", cat:"EAP",  doc:"Memo",             title:"Notice of officer transfer — handover instruction", date:"2026-08-28", from:"Human Resource Division", to:"All Sections", draft:"RJ", attach:"" },
-    { ref:"BPK.500-2/1 (09)",      cat:"BDIS", doc:"Outgoing Letter",   title:"Reply to public complaint regarding road maintenance", date:"2026-07-31", from:"Public Complaints Unit", to:"Complainant", draft:"RS", attach:"Photos (3)" },
+    { ref:"BPK.500-2/1 (09)",      cat:"BDIS", doc:"Letter",   title:"Reply to public complaint regarding road maintenance", date:"2026-07-31", from:"Public Complaints Unit", to:"Complainant", draft:"RS", attach:"Photos (3)" },
     { ref:"MKN.11/8/1 (18)",       cat:"BSP",  doc:"Minutes",           title:"Follow-up minutes of the water supply security meeting", date:"2026-08-12", from:"NSC Secretariat", to:"Committee Members", draft:"MH", attach:"" },
     { ref:"KEW.PS/1.3 (61)",       cat:"RBA",  doc:"Memo",              title:"Reminder on third quarter financial account closing", date:"2026-08-29", from:"Finance Division", to:"All Sections", draft:"RJ", attach:"Form KEW.8" },
-    { ref:"PTG.100-3/4 (22)",      cat:"BDIS", doc:"Incoming Letter",   title:"Notice of coordination meeting for community hall upgrade", date:"2026-07-18", from:"Land & Mines Office", to:"District Office", draft:"MH", attach:"Site plan" },
-    { ref:"EAP.2/7-3 (05)",        cat:"EAP",  doc:"Outgoing Letter",   title:"Notice of community engagement programme for the coming quarter", date:"2026-06-25", from:"District Office", to:"Village Heads", draft:"RS", attach:"Schedule" }
+    { ref:"PTG.100-3/4 (22)",      cat:"BDIS", doc:"Letter",   title:"Notice of coordination meeting for community hall upgrade", date:"2026-07-18", from:"Land & Mines Office", to:"District Office", draft:"MH", attach:"Site plan" },
+    { ref:"EAP.2/7-3 (05)",        cat:"EAP",  doc:"Letter",   title:"Notice of community engagement programme for the coming quarter", date:"2026-06-25", from:"District Office", to:"Village Heads", draft:"RS", attach:"Schedule" }
   ];
 
-  var KEY = "persuratan.records.v5";
+  var KEY = "persuratan.records.v6";
   var DESK_KEY = "persuratan.desk.v1";
   var data;
   try { data = JSON.parse(localStorage.getItem(KEY)) || seed; } catch (e) { data = seed; }
